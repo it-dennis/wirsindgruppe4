@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 Dennis Rapp
+Copyright (c) 2024-2026 Muhammed Karacam, Patrick Nitsch, Felix Nissen, Dennis Rapp 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
