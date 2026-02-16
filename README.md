@@ -31,5 +31,5 @@ Um das Projekt lokal auszuführen, folge diesen Schritten:
 👥 Team
 [Name 1] (@GithubUser1)
 [Name 2] (@GithubUser2)
-[Name 3] (@GithubUser3)
+ Patrick (@patrickniweb)
 [Name 4] (@GithubUser4)
