@@ -82,3 +82,22 @@ Mit diesen Commands überschreibt man alle lokalen Änderungen! Also nur für de
 
 git fetch origin  
 git reset --hard origin/main  
+
+## fastapi install
+
+python3 -m venv venv
+
+source venv/bin/activate
+
+pip install --upgrade pip
+pip install jupyter ipykernel
+
+pip install "fastapi[standard]"
+
+pip install pydantic
+
+python -m ipykernel install --user --name venv --display-name "Python (venv)"
+
+pip install requests
+
+fastapi dev main.py = startet
