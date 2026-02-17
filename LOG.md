@@ -1,4 +1,4 @@
-### Log Datei zu unsere geleisteten Arbeit
+# Log Datei zu unsere geleisteten Arbeit
 
 ## Montag: 16.02.2026
 
