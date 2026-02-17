@@ -2,9 +2,12 @@
 
 ## Montag: 16.02.2026
 
-Wir haben uns zusammen getan, haben uns abgesprochen und das wichtigste organisiert. (Muhammed Karacam)
+Wir haben uns zusammen getan, haben uns abgesprochen und das wichtigste organisiert. (Muhammed Karacam)  
+Mini Proof-of-Concept Code (Felix)  
 
 ## Dienstag 17.02.2026
+
+Grobe erste Backend-Struktur, Mini Frontend. (Felix)  
 
 ## Mittwoch 18.02.2026
 
