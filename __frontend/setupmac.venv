@@ -1,7 +1,0 @@
-#!/bin/bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install --upgrade pip
-pip install ipykernel jupyter
-pip3 install -r requirements.txt
-echo "ERFOLG: venv ist bereit und Pakete sind installiert!"
