@@ -1,0 +1,42 @@
+# --- Systemdateien ---
+.DS_Store
+Thumbs.db
+
+# --- Editoren & IDEs (VS Code, IntelliJ, etc.) ---
+.vscode/
+.idea/
+*.swp
+*.iml
+
+# --- Sicherheit (WICHTIG!) ---
+# Niemals echte Passwörter oder API-Keys hochladen!
+.env
+.env.local
+.env.*.local
+
+# --- Node.js / JavaScript ---
+node_modules/
+npm-debug.log*
+yarn-error.log*
+dist/
+build/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.pytest_cache/
+
+# --- Java / Spring Boot ---
+target/
+!.mvn/wrapper/maven-wrapper.jar
+build/
+.gradle/
+bin/
+
+# --- Logs ---
+*.log
+logs/
