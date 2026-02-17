@@ -55,6 +55,7 @@ TEAM
 [Patrick] (@skpatrickue-73)
 [Dennis] (@it-dennis)
 
+---
 
 ## fastapi install
 
@@ -72,3 +73,12 @@ pip install requests
 fastapi dev main.py = startet
 
 control + c = beenden
+
+---
+
+## Probleme beim pullen?
+
+Mit diesen Commands überschreibt man alle lokalen Änderungen! Also nur für den Notfall!  
+
+git fetch origin  
+git reset --hard origin/main  
