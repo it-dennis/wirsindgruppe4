@@ -6,7 +6,7 @@ Wir haben uns zusammen getan, haben uns abgesprochen und das wichtigste organisi
 Mini Proof-of-Concept Code (Felix)  
 
 ## Dienstag 17.02.2026
-P. ;-)
+P. ;-)kleine Korrektur
 
 Grobe erste Backend-Struktur, Mini Frontend. (Felix)  
 
