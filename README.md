@@ -54,3 +54,21 @@ TEAM
 [Felix] (@flxnsn)
 [Patrick] (@skpatrickue-73)
 [Dennis] (@it-dennis)
+
+
+## fastapi install
+
+python3 -m venv venv
+
+source venv/bin/activate
+
+pip install --upgrade pip
+pip install jupyter ipykernel
+
+python -m ipykernel install --user --name venv --display-name "Python (venv)"
+
+pip install requests
+
+fastapi dev main.py = startet
+
+control + c = beenden
