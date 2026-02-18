@@ -1,0 +1,19 @@
+body{
+    box-sizing: border-box;
+    background-color: darkgray;
+}
+
+@font-face {
+    src: url('./typeface/GoogleSansFlex-VariableFont_GRAD,ROND,opsz,slnt,wdth,wght.ttf') format('truetype');
+    font-family:sans-serif;
+}
+
+.login{
+    padding-left: 496px;
+    padding-top: 40px;
+    display: flex;
+}
+
+.btn{
+
+}
