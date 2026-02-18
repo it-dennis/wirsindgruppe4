@@ -1,4 +1,4 @@
-# Log Datei zu unsere geleisteten Arbeit
+# Log-Datei zu unserer geleisteten Arbeit
 
 ## Montag: 16.02.2026
 
@@ -6,8 +6,8 @@ Wir haben uns zusammen getan, haben uns abgesprochen und das wichtigste organisi
 Mini Proof-of-Concept Code (Felix)  
 
 ## Dienstag 17.02.2026
-P. ;-)kleine Korrektur
 
+P. ;-)kleine Korrektur  
 Grobe erste Backend-Struktur, Mini Frontend. (Felix)  
 
 ## Mittwoch 18.02.2026
@@ -17,3 +17,17 @@ Viel Code gelöscht. Also ganz viel Minus-Fortschritt? (Felix)
 ## Donnerstag 19.02.2026
 
 ## Freitag 20.02.2026
+
+## Montag 23.02.2026
+
+## Dienstag 24.02.2026
+
+## Mittwoch 25.02.2026
+
+## Donnerstag 26.02.2026
+
+Präsentation vorbereiten!  
+
+## Freitag 27.02.2026
+
+Präsentation!  
