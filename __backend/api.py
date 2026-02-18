@@ -3,13 +3,6 @@ from typing import Optional
 from fastapi import FastAPI, Depends
 from sqlmodel import Session, create_engine, select
 
-class Note(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    title: str
-    content: str
-
-
-
 app = FastAPI()
 sqlite_url = "sqlite:///database.db"
 engine = create_engine(sqlite_url)
