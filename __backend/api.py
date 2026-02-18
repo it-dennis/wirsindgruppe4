@@ -48,7 +48,16 @@ def create_note(note: Note):
         return note
     
 # Notiz löschen (und aus allen Boards entfernen)
-# Code hier
+@app.delete("/notes/{note_id}")
+def delete_note(note_id: int):
+    with Session(engine) as session:
+        note = session.get(Note, note_id)
+        if note == None:
+            return {"ok": False, "message": "Notiz nicht gefunden"}
+        session.delete(note)
+        session.commit()
+        return {"ok": True, "message": "Note gelöscht"}
+
 
 # Alle Boards eines Nutzers inklusive Notizen abrufen
 @app.get("/users/{user_id}/boards")
