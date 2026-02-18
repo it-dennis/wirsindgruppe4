@@ -12,8 +12,10 @@ Grobe erste Backend-Struktur, Mini Frontend. (Felix)
 
 ## Mittwoch 18.02.2026
 
-Viel Code gelöscht. Also ganz viel Minus-Fortschritt? (Felix)  
+Viel Code gelöscht. Also ganz viel Minus-Fortschritt?  
+Frontend python Datei, die aufs Backend zugreift ausgearbeitet. (Felix)  
 Notiz löschen: Code hinzugefügt (Patrick)
+
 ## Donnerstag 19.02.2026
 
 ## Freitag 20.02.2026
