@@ -67,7 +67,7 @@ app = FastAPI()
 def on_startup():
     SQLModel.metadata.create_all(engine)
 
-# Beispiel: Notiz erstellen (mit Board-Zuweisung)
+# Notiz erstellen (mit Board-Zuweisung)
 @app.post("/notes/")
 def create_note(note: Note):
     with Session(engine) as session:
@@ -75,8 +75,11 @@ def create_note(note: Note):
         session.commit()
         session.refresh(note)
         return note
+    
+# Notiz löschen (und aus allen Boards entfernen)
+# Code hier
 
-# Beispiel: Alle Boards eines Nutzers inklusive Notizen abrufen
+# Alle Boards eines Nutzers inklusive Notizen abrufen
 @app.get("/users/{user_id}/boards")
 def read_user_boards(user_id: int):
     with Session(engine) as session:
@@ -85,3 +88,18 @@ def read_user_boards(user_id: int):
             raise HTTPException(status_code=404, detail="User not found")
     
         return user.boards
+    
+# Nutzer stellen
+# Code hier
+
+# Nutzer löschen / Nutzer aus Boards löschen / Boards ohne Nutzer löschen
+# Code hier
+
+# Board erstellen und einem Nutzer zuweisen
+# Code hier
+
+# Board updaten, einen neune Nutzer hinzufügen
+# Code hier
+
+# Board updaten, einen Nutzer entfernen / Boards ohne Nutzer löschen
+# Code hier
