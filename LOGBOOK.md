@@ -12,6 +12,8 @@ Grobe erste Backend-Struktur, Mini Frontend. (Felix)
 
 ## Mittwoch 18.02.2026
 
+Viel Code gelöscht. Also ganz viel Minus-Fortschritt? (Felix)  
+
 ## Donnerstag 19.02.2026
 
 ## Freitag 20.02.2026
