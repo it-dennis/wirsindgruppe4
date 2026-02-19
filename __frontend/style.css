@@ -1,6 +1,7 @@
 body{
     box-sizing: border-box;
     background-color: darkgray;
+    font-family: 'typeface/GoogleSansFlex-VariableFont_GRAD,ROND,opsz,slnt,wdth,wght.ttf', sans-serif;
 }
 
 @font-face {
@@ -15,5 +16,9 @@ body{
 }
 
 .btn{
+    margin-inline: 1px;
+}
 
+.inline{
+    margin: 1px;
 }
