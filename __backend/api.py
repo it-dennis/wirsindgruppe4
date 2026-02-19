@@ -18,7 +18,7 @@ class User(SQLModel, table=True):
 class Board(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str
-    user_id: int = Field(foreign_key="user.id") # Ein Board hat nur einen Nutzer? -F
+    user_id: int = Field(foreign_key="user.id") # Ein Board hat nur einen Nutzer? -F  #in Arbeit (wir möchten dies mit einer Methode lösen)
     # Beziehungen
     user: User = Relationship(back_populates="boards")
     notes: List["Note"] = Relationship(back_populates="board")
@@ -53,8 +53,8 @@ def create_note(board_id: int, note: Note):
 def delete_note(note_id: int):
     with Session(engine) as session:
         note = session.get(Note, note_id)
-        if note == None:
-            return {"ok": False, "message": "Notiz nicht gefunden"} # Diskrepanz zwischen Errormeldungen
+        if not note:
+            raise HTTPException(status_code=404, detail="Note not found")
         session.delete(note)
         session.commit()
         return {"ok": True, "message": "Note gelöscht"}
@@ -66,7 +66,7 @@ def read_user_boards(user_id: int):
     with Session(engine) as session:
         user = session.get(User, user_id)
         if not user:
-            raise HTTPException(status_code=404, detail="User not found") # Diskrepanz zwischen Errormeldungen
+            raise HTTPException(status_code=404, detail="User not found") # Diskrepanz zwischen Errormeldungen #Errormeldungen "gleichgeschaltet mit HTTPException"
     
         return user.boards
 
@@ -76,7 +76,7 @@ def read_user_boards(user_id: int):
     with Session(engine) as session:
         user = session.get(User, user_id)
         if not user:
-            raise HTTPException(status_code=404, detail="User not found") # Diskrepanz zwischen Errormeldungen
+            raise HTTPException(status_code=404, detail="User not found") # Diskrepanz zwischen Errormeldungen #Errormeldungen "gleichgeschaltet mit HTTPException"
 
         user_boards = session.exec(select(Board).where(Board.user_id == user_id)).all() # muss angepasst werden, falls user IDs in Boards anders gespeichert werden
         return_content = []
