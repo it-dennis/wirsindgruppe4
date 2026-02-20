@@ -95,7 +95,34 @@ def create_user(user: User):
         return user
 
 # Nutzer löschen / Nutzer aus Boards löschen / Boards ohne Nutzer löschen
-# Code hier
+@app.delete("/users/{user_id}")
+def delete_user(user_id: int):
+    with Session(engine) as session:
+        user = session.get(User, user_id)
+        if user is None:
+            return {"ok": False, "message": "User nicht gefunden"}
+
+        # Alle Boards des Users holen
+        boards = session.exec(
+            select(Board).where(Board.user_id == user_id)
+        ).all()
+
+        # Zu jedem Board die Notes löschen
+        for board in boards:
+            notes = session.exec(
+                select(Note).where(Note.board_id == board.id)
+            ).all()
+            for note in notes:
+                session.delete(note)
+
+            # Board löschen
+            session.delete(board)
+
+        # User löschen
+        session.delete(user)
+        session.commit()
+
+        return {"ok": True, "message": "User, Boards und Notes gelöscht"}
 
 # Board erstellen und einem Nutzer zuweisen
 @app.post("/users/{user_id}/boards/")
