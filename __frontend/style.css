@@ -2,6 +2,10 @@ body{
     box-sizing: border-box;
     background-color: darkgray;
     font-family: 'typeface/GoogleSansFlex-VariableFont_GRAD,ROND,opsz,slnt,wdth,wght.ttf', sans-serif;
+    width:1920px;
+    height: 1080px;
+    background-image: url("./img/geralt-post-it-3847392_1920.jpg");
+    background-size: cover;
 }
 
 @font-face {
@@ -10,7 +14,7 @@ body{
 }
 
 .login{
-    padding-left: 496px;
+    padding-left: 1504px;
     padding-top: 40px;
     display: flex;
 }
