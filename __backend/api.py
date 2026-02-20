@@ -2,6 +2,14 @@ from sqlmodel import SQLModel, Field, Relationship, Session, create_engine, sele
 from typing import List, Optional
 from fastapi import FastAPI, HTTPException
 
+import hashlib
+
+def encrypt_128(passwort: str) -> str:
+    hash_object = hashlib.md5(passwort.encode())
+    encrypted = hash_object.hexdigest()
+    return encrypted
+
+
 # --- Datenbank Setup ---
 sqlite_url = "sqlite:///database.db"
 engine = create_engine(sqlite_url, connect_args={"check_same_thread": False})
