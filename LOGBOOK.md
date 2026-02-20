@@ -22,6 +22,8 @@ Github Probleme nahmen einen großen Teil des Tages ein.
 
 ## Freitag 20.02.2026
 
+Frontend JS-based html Seite Konzept erstellt. (Felix)  
+
 ## Montag 23.02.2026
 
 ## Dienstag 24.02.2026
