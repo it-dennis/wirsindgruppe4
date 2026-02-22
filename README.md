@@ -24,6 +24,7 @@ Um das Projekt lokal auszuführen, folge diesen Schritten:
 ```bash
 git clone https://github.com/it-dennis/wirsindgruppe4.git
 
+
 ```
 
 ---
@@ -78,10 +79,10 @@ control + c = beenden
 
 ## Probleme beim pullen?
 
-Mit diesen Commands überschreibt man alle lokalen Änderungen! Also nur für den Notfall!  
+Mit diesen Commands überschreibt man alle lokalen Änderungen! Also nur für den Notfall!
 
 git fetch origin  
-git reset --hard origin/main  
+git reset --hard origin/main
 
 ## fastapi install
 
@@ -101,3 +102,7 @@ python -m ipykernel install --user --name venv --display-name "Python (venv)"
 pip install requests
 
 fastapi dev main.py = startet
+
+Passwortbereich einrichten mit passlib:
+
+pip install "passlib[bcrypt]"
