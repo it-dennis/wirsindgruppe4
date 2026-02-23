@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends
 from sqlmodel import SQLModel, Session, create_engine, select
 from typing import List
+import boards 
 
 # Importe aus deinen eigenen Dateien
 from boards import User, Board, Note, BoardUserLink
@@ -16,9 +17,18 @@ def get_session():
 
 app = FastAPI(title="NoteShare Pro API")
 
+# ... dein engine setup ...
+
 @app.on_event("startup")
 def on_startup():
+    # Wir greifen direkt auf die Metadaten in boards zu, falls nötig
+    print("Starte Datenbank-Initialisierung...")
     SQLModel.metadata.create_all(engine)
+    print("Datenbank-Tabellen wurden (falls nicht vorhanden) erstellt.")
+
+#@app.on_event("startup")
+#def on_startup():
+#    SQLModel.metadata.create_all(engine)
 
 # --- USER ENDPUNKTE ---
 @app.post("/users/register")

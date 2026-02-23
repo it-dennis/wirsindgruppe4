@@ -12,6 +12,7 @@ class User(SQLModel, table=True):
     owned_boards: List["Board"] = Relationship(back_populates="owner")
     shared_boards: List["Board"] = Relationship(back_populates="members", link_model=BoardUserLink)
 
+      
 class Board(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str

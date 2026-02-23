@@ -1,12 +1,15 @@
-from passlib.context import CryptContext
+import bcrypt
 
-#Passwort anlegen und verifizieren, passlib sorgt dafür, dass die Passwörter sicher gehasht werden 
-#und nicht im Klartext in der Datenbank liegen. 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
-# Hilfsfunktionen für Passwort-Hashing und -Verifizierung
 def get_password_hash(password: str) -> str:
-    return pwd_context.hash(password)
+    # Passwort in Bytes umwandeln
+    pwd_bytes = password.encode('utf-8')
+    # Salz generieren und hashen
+    salt = bcrypt.gensalt()
+    hashed_password = bcrypt.hashpw(pwd_bytes, salt)
+    # Als String zurückgeben für die Datenbank
+    return hashed_password.decode('utf-8')
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return pwd_context.verify(plain_password, hashed_password)
+    password_bytes = plain_password.encode('utf-8')
+    hashed_bytes = hashed_password.encode('utf-8')
+    return bcrypt.checkpw(password_bytes, hashed_bytes)

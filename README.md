@@ -103,6 +103,6 @@ pip install requests
 
 fastapi dev main.py = startet
 
-Passwortbereich einrichten mit passlib:
+Passwortbereich einrichten bcrypt:
 
-pip install "passlib[bcrypt]"
+pip install bcrypt
