@@ -76,3 +76,4 @@ def create_note(title: str, content: str, board_id: int, session: Session = Depe
     session.add(note)
     session.commit()
     return note
+
