@@ -3,7 +3,7 @@ import bcrypt
 def get_password_hash(password: str) -> str:
     # Passwort in Bytes umwandeln
     pwd_bytes = password.encode('utf-8')
-    # Salz generieren und hashen
+    # Passwort absichern, gegen Brute-Force Angriffe rüsten und hashen
     salt = bcrypt.gensalt()
     hashed_password = bcrypt.hashpw(pwd_bytes, salt)
     # Als String zurückgeben für die Datenbank
