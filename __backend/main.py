@@ -76,3 +76,7 @@ def create_note(title: str, content: str, board_id: int, session: Session = Depe
     session.add(note)
     session.commit()
     return note
+
+@app.get("/")
+def read_root():
+    return {"message": "NoteShare Pro API läuft!"}
