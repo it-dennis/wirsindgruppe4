@@ -2,10 +2,13 @@ body{
     box-sizing: border-box;
     background-color: darkgray;
     font-family: 'typeface/GoogleSansFlex-VariableFont_GRAD,ROND,opsz,slnt,wdth,wght.ttf', sans-serif;
-    width:1920px;
+    width: auto;
     height: 1080px;
     background-image: url("./img/geralt-post-it-3847392_1920.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
 }
 
 @font-face {
@@ -17,6 +20,9 @@ body{
     padding-left: 1504px;
     padding-top: 40px;
     display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
 }
 
 .btn{
@@ -25,4 +31,15 @@ body{
 
 .inline{
     margin: 1px;
+}
+
+.si{
+    display: flex;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.singUp{
+    display: flex;
+    padding-left: 1504px;
 }
