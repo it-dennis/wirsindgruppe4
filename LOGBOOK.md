@@ -23,8 +23,11 @@ Github Probleme nahmen einen großen Teil des Tages ein.
 ## Freitag 20.02.2026
 
 Frontend JS-Datei die auf das FastAPI Backend zugreift. (Felix)  
-User Löschung und Passwort eingebunden (Patzrick)
+User Löschung und Passwort eingebunden (Patrick)  
+
 ## Montag 23.02.2026
+
+Backend gesalzen (Patrick)
 
 ## Dienstag 24.02.2026
 
