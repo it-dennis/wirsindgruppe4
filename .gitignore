@@ -30,6 +30,10 @@ venv/
 env/
 .pytest_cache/
 
+# --- Datenbanken ---
+*.db
+*.sqlite3
+
 # --- Java / Spring Boot ---
 target/
 !.mvn/wrapper/maven-wrapper.jar
