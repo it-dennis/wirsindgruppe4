@@ -126,14 +126,14 @@ async function main() {
   console.log(response)
 }
 
-main()
+//main()
 
 
 async function login() {
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
-  response = await login_user(username, password)
+  const response = await login_user(username, password)
   if (response["login"]) {
     document.getElementById('login_signup_form').style.display = 'none';
     document.getElementById('boards').style.display = 'block';
@@ -143,14 +143,21 @@ async function login() {
 }
 
 async function sign_up() {
+
+
+
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
-  response = await create_user(username, password)
-  if (response["login"]) {
+  console.log(username)
+  console.log(password)
+
+   const response = await register_user(username, password)
+   if (response["status"] == "User erstellt") { // Besseren Check bei Gelgenheit
     document.getElementById('login_signup_form').style.display = 'none';
     document.getElementById('boards').style.display = 'block';
   } else {
 
   }
+
 }
