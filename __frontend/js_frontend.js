@@ -127,3 +127,30 @@ async function main() {
 }
 
 main()
+
+
+async function login() {
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+
+  response = await login_user(username, password)
+  if (response["login"]) {
+    document.getElementById('login_signup_form').style.display = 'none';
+    document.getElementById('boards').style.display = 'block';
+  } else {
+
+  }
+}
+
+async function sign_up() {
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+
+  response = await create_user(username, password)
+  if (response["login"]) {
+    document.getElementById('login_signup_form').style.display = 'none';
+    document.getElementById('boards').style.display = 'block';
+  } else {
+
+  }
+}
