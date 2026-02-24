@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="./img/geralt-post-it-3847392_1920.jpg">
+    <link rel="stylesheet" href="style.css">
     <script src="js_frontend.js"></script>
     <title>NotizenDFMT</title>
 </head>
 <body>
     <main class="login">
         <div id="login_signup_form">
-            <div id="input">
-                <input class="inline" type="text" id="username" placeholder="Username">
-                <input class="inline" type="text" id="password" placeholder="Password">
+            <div id="input" class="inline">
+                <input type="text" id="username" placeholder="Username">
+                <input type="text" id="password" placeholder="Password">
             </div>
-            <div id="buttons">
-                <button onclick="login()" class="si"><a href="">Login</a> </button>
-                <button onclick="sign_up()" class="si"><a href="">Sign up</a> </button>
+            <div id="buttons" class="si">
+                <button onclick="login()"><a href="">Login</a> </button>
+                <button onclick="sign_up()"><a href="">Sign up</a> </button>
             </div>
         </div>
         <div id="boards" style="display: none;">
@@ -25,8 +25,8 @@
         </div>
     </main>
     <footer>
-        <a href="">Impressum</a>
-        <a href="">Datenschutz</a>
+        <a href="./datenschutz_impressum_texte/impressum_wsg4_de_de.pdf" target="_blank">Impressum</a>
+        <a href="./datenschutz_impressum_texte/datenschutzerklaerung_wsg4_de_de.pdf" target="_blank">Datenschutz</a>
     </footer>
 </body>
 </html>
