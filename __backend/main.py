@@ -42,6 +42,17 @@ def register_user(username: str, password: str, session: Session = Depends(get_s
     session.commit()
     return {"status": "User erstellt", "id": new_user.id}
 
+@app.get("/users/login")
+def login_user(username: str, password: str, session: Session = Depends(get_session)):
+    existing = session.exec(select(User).where(User.username == username)).first()
+    if existing:
+        hashed_password = session.exec(select(User.hashed_password).where(User.username == username)).first()
+        if verify_password(password, hashed_password):
+            return {"status": "login successfull", "login": True, "id": existing.id}
+        else:
+            return {"status": "Password incorrect", "login": False}
+    return {"status": "Username not found", "login": False}
+
 # --- BOARD ENDPUNKTE ---
 @app.post("/boards/")
 def create_board(name: str, owner_id: int, session: Session = Depends(get_session)):
