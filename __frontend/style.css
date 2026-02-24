@@ -17,12 +17,14 @@ body{
 }
 
 .login{
-    padding-left: 1504px;
     padding-top: 40px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: flex-start;
+    justify-content: flex-end;
+    gap: 10px;
+    width: 100%;
 }
 
 .btn{
@@ -55,18 +57,19 @@ body{
     height: 60px;
     background-color: red;
     background: #000000;
-    font-size: 24px;
+    font-size: 16px;
     text-align: center;
+    align-items: center;
 }
 .footerA{
     margin-left: 24px;
 }
 
-a{
+.footerLink{
     text-decoration: none;
     color: red;
 }
 
-a:hover{
+.footerLink:hover{
     color: orange;
 }
