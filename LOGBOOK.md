@@ -31,6 +31,8 @@ Backend gesalzen (Patrick)
 
 ## Dienstag 24.02.2026
 
+Frontend JS Buttons haben jetzt Funktionen (Felix)
+
 ## Mittwoch 25.02.2026
 
 ## Donnerstag 26.02.2026
