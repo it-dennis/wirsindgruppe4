@@ -137,15 +137,13 @@ async function login() {
   if (response["login"]) {
     document.getElementById('login_signup_form').style.display = 'none';
     document.getElementById('boards').style.display = 'block';
+    display_boards(response["id"])
   } else {
-
+    // error meldung
   }
 }
 
 async function sign_up() {
-
-
-
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
@@ -156,8 +154,110 @@ async function sign_up() {
    if (response["status"] == "User erstellt") { // Besseren Check bei Gelgenheit
     document.getElementById('login_signup_form').style.display = 'none';
     document.getElementById('boards').style.display = 'block';
+    display_boards(response["id"])
   } else {
-
+    // error meldung
   }
 
+}
+
+async function display_boards(user_id) {
+  const board_container = document.getElementById("board_container");
+  board_container.innerHTML = "";
+
+  // Add Board button
+  const addBoardBtn = document.createElement("button");
+  addBoardBtn.className = "btn_add_board";
+  addBoardBtn.textContent = "+ Add Board";
+  addBoardBtn.addEventListener("click", function () {
+    // add board function
+  });
+  board_container.appendChild(addBoardBtn);
+
+  const all_boards = []
+  const response = ""
+  try {
+    response = await get_user_boards_notes(user_id)
+  } catch {
+    console.log("no notes")
+  }
+
+
+  if (response["eigene"]) {
+    for (let i = 0; i < response["eigene"].length; i++) {
+      all_boards.append(response["eigene"][i])
+    }
+  }
+  if (response["geteilte"]) {
+    for (let i = 0; i < response["geteilte"].length; i++) {
+      all_boards.append(response["geteilte"][i])
+    }
+  }
+
+
+  for (let i = 0; i < all_boards.length; i++) {
+    
+    const board_element = document.createElement("div");
+    board_element.className = "board";
+    board_element.dataset.boardId = all_boards[i].id;
+
+    // Header: title + edit user button
+    const header = document.createElement("div");
+    header.className = "board_header";
+
+    const title = document.createElement("h2");
+    title.className = "board_title";
+    title.textContent = all_boards[i].name;
+
+    const edit_user_button = document.createElement("button");
+    edit_user_button.className = "btn_edit_user";
+    edit_user_button.textContent = "Edit User";
+    edit_user_button.addEventListener("click", function () {
+      // Add function edit User
+    });
+
+    header.appendChild(title);
+    header.appendChild(edit_user_button);
+    board_element.appendChild(header);
+
+    // Element wo Notes reingeladen werden
+    const notes_list = document.createElement("div");
+    notes_list.className = "notes-list";
+
+    // Notes aus Boards laden
+
+    for (let j = 0; j < all_boards[i].notes.length; j++) {
+
+      const note = document.createElement("div");
+      note.className = "note";
+
+      const note_title = document.createElement("div");
+      note_title.className = "note_title";
+      note_title.textContent = all_boards[i].notes[j].title;
+
+      const note_content = document.createElement("div");
+      note_content.className = "note_content";
+      note_content.textContent = all_boards[i].notes[j].content;
+
+      note.appendChild(note_title);
+      note.appendChild(note_content);
+      notesList.appendChild(note);
+
+    }
+
+    board_element.appendChild(notes_list);
+
+    // Add Note button
+    const add_note_button = document.createElement("button");
+    add_note_button.className = "btn_add_note";
+    add_note_button.textContent = "Add Note";
+    add_note_button.addEventListener("click", function () {
+      // Add note function
+    });
+
+    board_element.appendChild(add_note_button);
+
+    board_container.appendChild(board_element);
+
+  }
 }
