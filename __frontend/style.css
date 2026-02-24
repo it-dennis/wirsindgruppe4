@@ -34,7 +34,7 @@ body{
 
 .but{
     text-decoration: none;
-    color:  rgb(0, 221, 255);
+    color: rgb(247, 247, 169);
     background-color: #000000;
 }
 
@@ -56,7 +56,7 @@ body{
 }
 
 .inCol{
-    background-color: rgb(0, 221, 255);
+    background-color: rgb(247, 247, 169);
 }
 
 .si{
@@ -91,7 +91,7 @@ body{
 
 .footerLink{
     text-decoration: none;
-    color:  rgb(0, 221, 255);
+    color:  rgb(247, 247, 169);
 }
 
 .footerLink:hover{
