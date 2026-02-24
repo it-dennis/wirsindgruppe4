@@ -42,6 +42,17 @@ def register_user(username: str, password: str, session: Session = Depends(get_s
     session.commit()
     return {"status": "User erstellt", "id": new_user.id}
 
+@app.get("/users/login")
+def login_user(username: str, password: str, session: Session = Depends(get_session)):
+    existing = session.exec(select(User).where(User.username == username)).first()
+    if existing:
+        hashed_password = session.exec(select(User.hashed_password).where(User.username == username)).first()
+        if verify_password(password, hashed_password):
+            return {"status": "login successfull", "login": True, "id": existing.id}
+        else:
+            return {"status": "Password incorrect", "login": False}
+    return {"status": "Username not found", "login": False}
+
 # --- BOARD ENDPUNKTE ---
 @app.post("/boards/")
 def create_board(name: str, owner_id: int, session: Session = Depends(get_session)):
@@ -77,3 +88,9 @@ def create_note(title: str, content: str, board_id: int, session: Session = Depe
     session.commit()
     return note
 
+<<<<<<< HEAD
+=======
+@app.get("/")
+def read_root():
+    return {"message": "NoteShare Pro API läuft!"}
+>>>>>>> 47cb5bcee5972f83642ca04aa192ed0d26107cbf

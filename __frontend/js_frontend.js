@@ -1,20 +1,16 @@
 // ausführbar zB mit "node js_frontend.js" in bash
 // JS Version des python Codes im Kommentar
+// encodeURIComponent convertiert einige Zeichen in Zeichen, die in eine URL passen, zB " " zu "%20"
+// Nicht so gut für Passwörter dieser Code hier
 
 let url = "http://127.0.0.1:8000"
 let data = ""
 logging = true
 
-// Basiert auf alter api.py
-
+// Notiz erstellen
 async function create_note(board_id, title, content) {
-
-  const payload = {"title": title, "content": content}
-
-  const response = await fetch(`${url}/boards/${board_id}/`, {
+  const response = await fetch(`${url}/notes/?title=${encodeURIComponent(title)}&content=${encodeURIComponent(content)}&board_id=${board_id}`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
   });
   data = await response.json();
   if (logging) {console.log(data);}
@@ -44,14 +40,20 @@ async function get_user_boards_notes(user_id) {
   return data
 }
 
-async function create_user(username, password) {
+// Sign up
+async function register_user(username, password) {
+  const response = await fetch(url + `/users/register?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`, {
+  method: "POST",
+  });
+  data = await response.json();
+  if (logging) {console.log(data);}
+  return data
+}
 
-  const payload = {"username": username, "password": password}
-
-  const response = await fetch(url+"/users/", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
+// login
+async function login_user(username, password) {
+  const response = await fetch(url + `/users/login?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`, {
+  method: "GET",
   });
   data = await response.json();
   if (logging) {console.log(data);}
@@ -67,14 +69,10 @@ async function delete_user(user_id) {
   return data
 }
 
-async function create_board(user_id, name, user_id) {
-
-  const payload = {"name": name, "user_id": user_id}
-
-  const response = await fetch(`${url}/users/${user_id}/boards/`, {
+// Board erstellen
+async function create_board(name, user_id) {
+  const response = await fetch(`${url}/boards?name=${encodeURIComponent(name)}&owner_id=${user_id}`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(board)
   });
   data = await response.json();
   if (logging) {console.log(data);}
@@ -94,19 +92,65 @@ async function clear_database() {
   return data
 }
 
-async function create_user_get_id() {
-  create_user("JSUser", "Password")
-  return 
-}
-
-// Code zum Testen muss in asyn Function gesteckt werden, damit await functioniert
-// Sonst kann man zB die userID nicht auslesen
+// Beispiel Code:
+// Muss in asyn Function gesteckt werden, damit await functioniert
 
 async function main() {
-  clear_database()
-  user = await create_user("JSUser", "Password")
-  console.log(user["id"])
+
+  username = "JS_user"
+  password = "123456"
+
+  // login Versuch, wenn login nicht true, stattdessen registrieren
+
+  response = await login_user(username, password)
+
+  if (response["login"]) {
+    console.log("login")
+    
+  } else {
+    response = await register_user(username, password)
+    console.log("sign up")
+  }
+
+  user_id = response["id"]
+  console.log(user_id)
   
+  // Board posten
+
+  response = await create_board("Gruppenarbeit", user_id)
+
+  gruppenarbeit_board = response
+
+  response = await create_note(gruppenarbeit_board["id"], "Erste Notiz", "Content")
+
+  console.log(response)
 }
 
 main()
+
+
+async function login() {
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+
+  response = await login_user(username, password)
+  if (response["login"]) {
+    document.getElementById('login_signup_form').style.display = 'none';
+    document.getElementById('boards').style.display = 'block';
+  } else {
+
+  }
+}
+
+async function sign_up() {
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+
+  response = await create_user(username, password)
+  if (response["login"]) {
+    document.getElementById('login_signup_form').style.display = 'none';
+    document.getElementById('boards').style.display = 'block';
+  } else {
+
+  }
+}
