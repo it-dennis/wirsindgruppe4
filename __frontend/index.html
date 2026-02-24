@@ -3,19 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="./img/geralt-post-it-3847392_1920.jpg">
-    <script scr="js_frontend.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="js_frontend.js"></script>
     <title>NotizenDFMT</title>
 </head>
 <body>
     <main class="login">
-        <input class="inline" type="text" placeholder="Username">
-        <input class="inline" type="text" placeholder="Password">
-        <button class="btn">Login</button>
-        <button class="si"><a href="">Sign up</a></button>
+        <div id="login_signup_form">
+            <div id="input" class="inline">
+                <input type="text" id="username" placeholder="Username" class="inCol">
+                <input type="text" id="password" placeholder="Password" class="inCol">
+            </div>
+            <div id="buttons" class="si">
+                <button onclick="login()"class="but">Login</button>
+                <button onclick="sign_up()"class="but">Sign Up</button>
+            </div>
+        </div>
+        <div id="boards" style="display: none;">
+            <h1>Boards und so</h1>
+        </div>
     </main>
-    <footer>
-    </footer>
+    <footer class="footer">
+        <div class="footerA">
+            <a class="footerLink" href="./datenschutz_impressum_texte/impressum_wsg4_de_de.pdf" target="_blank">Impressum</a>
+            <a class="footerLink" href="./datenschutz_impressum_texte/datenschutzerklaerung_wsg4_de_de.pdf" target="_blank">Datenschutz</a>
+            <a class="footerLink" href="https://github.com/it-dennis/wirsindgruppe4" target="_blank">github</a>
+        </div>
+        </footer>
 </body>
 </html>

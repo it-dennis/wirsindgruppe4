@@ -3,7 +3,7 @@ body{
     background-color: darkgray;
     font-family: 'typeface/GoogleSansFlex-VariableFont_GRAD,ROND,opsz,slnt,wdth,wght.ttf', sans-serif;
     width: auto;
-    height: 1080px;
+    height: 100vh;
     background-image: url("./img/geralt-post-it-3847392_1920.jpg");
     background-position: center;
     background-repeat: no-repeat;
@@ -29,6 +29,12 @@ body{
 
 .btn{
     margin-inline: 1px;
+    
+}
+
+.but{
+    text-decoration: none;
+    color:  rgb(0, 221, 255);
 }
 
 .inline{
@@ -36,15 +42,21 @@ body{
     display:flex
 }
 
+.inCol{
+    background-color: rgb(0, 221, 255);
+}
+
 .si{
     display: flex;
     text-align: center;
     white-space: nowrap;
+    text-decoration: none;
+    justify-content: flex-end;
+    padding-top: 8px;
 }
 
 .singUp{
     display: flex;
-    padding-left: 1504px;
 }
 
 .footer {
@@ -55,7 +67,6 @@ body{
     bottom: 0;
     width: 100%;
     height: 60px;
-    background-color: red;
     background: #000000;
     font-size: 16px;
     text-align: center;
@@ -67,7 +78,7 @@ body{
 
 .footerLink{
     text-decoration: none;
-    color: red;
+    color:  rgb(0, 221, 255);
 }
 
 .footerLink:hover{
