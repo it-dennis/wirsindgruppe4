@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends
 from sqlmodel import SQLModel, Session, create_engine, select
 from typing import List
+from fastapi.middleware.cors import CORSMiddleware
 import boards 
 
 # Importe aus deinen eigenen Dateien
@@ -17,6 +18,14 @@ def get_session():
 
 app = FastAPI(title="NoteShare Pro API")
 
+#--- CORS Middleware soll Schwierigkeiten zwischen Frontend und Backend vermeiden ---
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # In Produktion später spezifizieren!
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.on_event("startup")
 def on_startup():
@@ -49,6 +58,7 @@ def login_user(username: str, password: str, session: Session = Depends(get_sess
         else:
             return {"status": "Password incorrect", "login": False}
     return {"status": "Username not found", "login": False}
+
 
 # --- BOARD ENDPUNKTE ---
 @app.post("/boards/")
