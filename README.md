@@ -77,6 +77,12 @@ control + c = beenden
 
 ---
 
+Passwortbereich einrichten bcrypt:
+
+pip install bcrypt
+
+---
+
 ## Probleme beim pullen?
 
 Mit diesen Commands überschreibt man alle lokalen Änderungen! Also nur für den Notfall!
@@ -103,6 +109,15 @@ pip install requests
 
 fastapi dev main.py = startet
 
-Passwortbereich einrichten bcrypt:
+---
 
-pip install bcrypt
+## Frontend und Backend lokal hosten
+
+Im ordner des Backends:  
+fastapi dev main.py  
+
+im Ordener des Frontends:  
+python3 -m http.server 8080  
+
+Dann im Browser:  
+http://localhost:8080/index.html  
