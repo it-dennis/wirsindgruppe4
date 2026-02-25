@@ -35,7 +35,8 @@ Frontend JS Buttons haben jetzt Funktionen (Felix)
 
 ## Mittwoch 25.02.2026
 
-Frontend an Backend angepasst   (Patrick)
+Frontend an Backend angepasst   (Patrick)  
+Erste Präsentations-Struktur (Felix)  
 
 ## Donnerstag 26.02.2026
 
