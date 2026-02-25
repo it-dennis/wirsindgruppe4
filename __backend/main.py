@@ -100,3 +100,56 @@ def create_note(title: str, content: str, board_id: int, session: Session = Depe
 def read_root():
     return {"message": "NoteShare Pro API läuft!"}
 
+
+# --- ENTFERNEN ENDPUNKTE ---
+
+# User löschen: Alle Boards, die der User besitzt, werden gelöscht. 
+# Alle Boards, die der User geteilt bekommt, bleiben bestehen, aber der User verliert den Zugriff.
+@app.delete("/users/{user_id}")
+def delete_user(user_id: int, session: Session = Depends(get_session)):
+    user = session.get(User, user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User nicht gefunden")
+    
+    session.delete(user)
+    session.commit()
+    return {"status": f"User {user_id} und zugehörige Daten gelöscht"}
+
+
+@app.delete("/boards/{board_id}")
+def delete_board(board_id: int, session: Session = Depends(get_session)):
+    board = session.get(Board, board_id)
+    if not board:
+        raise HTTPException(status_code=404, detail="Board nicht gefunden")
+    
+    session.delete(board)
+    session.commit()
+    return {"status": f"Board {board_id} gelöscht"}
+
+
+@app.delete("/boards/{board_id}/remove-user/{user_id}")
+def remove_user_from_board(board_id: int, user_id: int, session: Session = Depends(get_session)):
+    # Verbindungssuche in der Tabelle
+    statement = select(BoardUserLink).where(
+        BoardUserLink.board_id == board_id, 
+        BoardUserLink.user_id == user_id
+    )
+    link = session.exec(statement).first()
+    
+    if not link:
+        raise HTTPException(status_code=404, detail="Zuweisung nicht gefunden")
+    
+    session.delete(link)
+    session.commit()
+    return {"status": "Zugriff für User entfernt"}
+
+
+@app.delete("/notes/{note_id}")
+def delete_note(note_id: int, session: Session = Depends(get_session)):
+    note = session.get(Note, note_id)
+    if not note:
+        raise HTTPException(status_code=404, detail="Notiz nicht gefunden")
+    
+    session.delete(note)
+    session.commit()
+    return {"status": f"Notiz {note_id} gelöscht"}
