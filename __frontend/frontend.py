@@ -2,78 +2,94 @@ import requests
 
 url = "http://127.0.0.1:8000"
 
+print("Starte Frontend Test...\n")
 
-# Datenbank leeren (Sonst würde man beim Testen immer wieder die gleichen Inhalte in die Datenbank schreiben)
+# USER REGISTRIEREN
 
-response = requests.delete(f"{url}/clear/")
-print(response.json())
+params = {
+    "username": "Testnutzer",
+    "password": "Passwort"
+}
 
+response = requests.post(f"{url}/users/register", params=params)
+user_data = response.json()
 
-# Nutzer erstellen
+print("User Regestrierung:", user_data)
 
-payload = {"username": "Testnutzer", "password": "Passwort"}
-
-response = requests.post(f"{url}/users/", json=payload)
-# print(response.json())
-
-
-# Und user ID auslesen
-
-user = response.json()
-user_id = user["id"]
-# print(user_id)
+user_id = user_data["id"]
 
 
-# Boards erstellen und zuweisen mit user ID, board IDS speichern
+# LOGIN TEST
 
-response = requests.post(f"{url}/users/{user_id}/boards/", json={"name": "Gruppenarbeit"}).json()
-board_gruppenarbeit_id = response["id"]
+login_response = requests.get(
+    f"{url}/users/login",
+    params={"username": "Testnutzer", "password": "Passwort"}
+)
 
-response = requests.post(f"{url}/users/{user_id}/boards/", json={"name": "Privat"}).json()
-board_privat_id = response["id"]
-
-
-# Boards füllen
-
-notiz1 = {"title": "Frontend-Krams", "content": "Nützliche Notizen zum Frontend: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua."}
-notiz2 = {"title": "Datenbank-Krams", "content": "Ein paar Infos zur Datenbankanbindung: At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."}
-notiz3 = {"title": "Backend-Krams", "content": "Hier ein paar Notizen zum Backend unseres Projektes und Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."}
-notiz4 = {"title": "Einkaufslist", "content": """1x Salz
-7x Apfel
-2x Nudeln
-    """}
+print("Login Antwort:", login_response.json(), "\n")
 
 
-# Notizen Boards hinzufügen mit board IDs
+# BOARDS ERSTELLEN
 
-payload = [notiz1, notiz2, notiz3]
+board1 = requests.post(
+    f"{url}/boards/",
+    params={"name": "Gruppenarbeit", "owner_id": user_id}
+).json()
 
-for notiz in payload:
-    response = requests.post(f"{url}/boards/{board_gruppenarbeit_id}/", json=notiz)
-    print(response.json())
+board2 = requests.post(
+    f"{url}/boards/",
+    params={"name": "Privat", "owner_id": user_id}
+).json()
 
-response = requests.post(f"{url}/boards/{board_privat_id}/", json=notiz4)
-print(response.json())
+print("Boards erstellt:", board1["name"], "und", board2["name"], "\n")
 
-
-# Alle Boards und Notizen für unseren Nutzer auslesen
-
-response = requests.get(f"{url}/users/{user_id}/notes").json()
+board1_id = board1["id"]
+board2_id = board2["id"]
 
 
-# Alle Boards und Notizen printen
+# NOTIZEN ERSTELLEN
 
-print(f"Ausgabe aller Boards und Notizen für User mit ID {user_id}:")
-print()
+notes = [
+    {"title": "Frontend-Krams", "content": "Infos zum Frontend Projekt"},
+    {"title": "Backend-Krams", "content": "Infos zum Backend Projekt"},
+]
 
-for board in response:
-    print(f"Board: {board['name']}")
-    print()
+for note in notes:
+    created = requests.post(
+        f"{url}/notes/",
+        params={
+            "title": note["title"],
+            "content": note["content"],
+            "board_id": board1_id
+        }
+    ).json()
 
-    notes = board.get("notes", [])
+    print("Notiz ersetllt:", created["title"])
 
-    for note in notes:
-        print(f"Notiz: {note['title']}")
-        print()
-        print(f"Inhalt: {note['content']}")
-        print()
+
+# Extra Notiz im Privat Board
+requests.post(
+    f"{url}/notes/",
+    params={
+        "title": "Einkaufsliste",
+        "content": "1x Salz\n2x Nudeln\n7x Apfel",
+        "board_id": board2_id
+    }
+)
+
+
+# ALLE BOARDS AUSLESEN
+
+boards = requests.get(f"{url}/users/{user_id}/all-boards").json()
+
+print("\nAlle Boards vom User:\n")
+
+print("Eigene Boards:")
+for board in boards["eigene"]:
+    print("-", board["name"])
+
+print("\nGeteilte Boards:")
+for board in boards["geteilte"]:
+    print("-", board["name"])
+
+print("\nFrontend Test abgeschlossen.")
