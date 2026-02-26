@@ -5,10 +5,12 @@
 
 let url = "http://127.0.0.1:8000"
 let data = ""
-logging = true
+let logging = true
+current_user_id = 0
+current_board_id = 0
 
 // Notiz erstellen
-async function create_note(board_id, title, content) {
+async function create_note(title, content, board_id) {
   const response = await fetch(`${url}/notes/?title=${encodeURIComponent(title)}&content=${encodeURIComponent(content)}&board_id=${board_id}`, {
     method: "POST",
   });
@@ -27,7 +29,7 @@ async function delete_note(note_id) {
 }
 
 async function get_user_boards(user_id) {
-  const response = await fetch(`${url}/users/${user_id}/boards`);
+  const response = await fetch(`${url}/users/${user_id}/all-boards`);
   data = await response.json();
   if (logging) {console.log(data);}
   return data
@@ -137,7 +139,8 @@ async function login() {
   if (response["login"]) {
     document.getElementById('login_signup_form').style.display = 'none';
     document.getElementById('boards').style.display = 'block';
-    display_boards(response["id"])
+    current_user_id = response["id"]
+    display_boards()
   } else {
     // error meldung
   }
@@ -154,14 +157,15 @@ async function sign_up() {
    if (response["status"] == "User erstellt") { // Besseren Check bei Gelgenheit
     document.getElementById('login_signup_form').style.display = 'none';
     document.getElementById('boards').style.display = 'block';
-    display_boards(response["id"])
+    current_user_id = response["id"]
+    display_boards()
   } else {
     // error meldung
   }
 
 }
 
-async function display_boards(user_id) {
+async function display_boards() {
   const board_container = document.getElementById("board_container");
   board_container.innerHTML = "";
 
@@ -170,30 +174,25 @@ async function display_boards(user_id) {
   addBoardBtn.className = "btn_add_board";
   addBoardBtn.textContent = "+ Add Board";
   addBoardBtn.addEventListener("click", function () {
-    // add board function
+    open_board_popup()
   });
   board_container.appendChild(addBoardBtn);
 
   const all_boards = []
-  const response = ""
-  try {
-    response = await get_user_boards_notes(user_id)
-  } catch {
-    console.log("no notes")
-  }
+
+  const response = await get_user_boards(current_user_id)
 
 
   if (response["eigene"]) {
     for (let i = 0; i < response["eigene"].length; i++) {
-      all_boards.append(response["eigene"][i])
+      all_boards.push(response["eigene"][i])
     }
   }
   if (response["geteilte"]) {
     for (let i = 0; i < response["geteilte"].length; i++) {
-      all_boards.append(response["geteilte"][i])
+      all_boards.push(response["geteilte"][i])
     }
   }
-
 
   for (let i = 0; i < all_boards.length; i++) {
     
@@ -211,48 +210,56 @@ async function display_boards(user_id) {
 
     const edit_user_button = document.createElement("button");
     edit_user_button.className = "btn_edit_user";
-    edit_user_button.textContent = "Edit User";
+    //edit_user_button.textContent = all_boards[i].id;
     edit_user_button.addEventListener("click", function () {
       // Add function edit User
     });
 
     header.appendChild(title);
-    header.appendChild(edit_user_button);
+    //header.appendChild(edit_user_button);
     board_element.appendChild(header);
 
     // Element wo Notes reingeladen werden
     const notes_list = document.createElement("div");
     notes_list.className = "notes-list";
 
+    console.log(all_boards[i])
+    console.log(all_boards[i].id)
+    console.log(all_boards[i].notes)
+
     // Notes aus Boards laden
+    try {
+      for (let j = 0; j < all_boards[i].notes.length; j++) {
 
-    for (let j = 0; j < all_boards[i].notes.length; j++) {
+        const note = document.createElement("div");
+        note.className = "note";
 
-      const note = document.createElement("div");
-      note.className = "note";
+        const note_title = document.createElement("div");
+        note_title.className = "note_title";
+        note_title.textContent = all_boards[i].notes[j].title;
 
-      const note_title = document.createElement("div");
-      note_title.className = "note_title";
-      note_title.textContent = all_boards[i].notes[j].title;
+        const note_content = document.createElement("div");
+        note_content.className = "note_content";
+        note_content.textContent = all_boards[i].notes[j].content;
 
-      const note_content = document.createElement("div");
-      note_content.className = "note_content";
-      note_content.textContent = all_boards[i].notes[j].content;
+        note.appendChild(note_title);
+        note.appendChild(note_content);
+        notes_list.appendChild(note);
 
-      note.appendChild(note_title);
-      note.appendChild(note_content);
-      notesList.appendChild(note);
-
+      }
+    } catch {
+      // Error
     }
 
     board_element.appendChild(notes_list);
+    
 
     // Add Note button
     const add_note_button = document.createElement("button");
     add_note_button.className = "btn_add_note";
     add_note_button.textContent = "Add Note";
     add_note_button.addEventListener("click", function () {
-      // Add note function
+      open_note_popup(all_boards[i].id)
     });
 
     board_element.appendChild(add_note_button);
@@ -261,3 +268,52 @@ async function display_boards(user_id) {
 
   }
 }
+
+function open_board_popup() {
+  document.getElementById('board_overlay').classList.add('active');
+  }
+
+function open_note_popup(board_id) {
+  current_board_id = board_id
+  document.getElementById('note_overlay').classList.add('active');
+
+}
+
+async function save_board() {
+  const name   = document.getElementById('name_input').value;
+
+  console.log(name)
+
+  const response = await create_board(name, current_user_id)
+
+// Overlay leeren und löschen
+  document.getElementById('name_input').value   = '';
+  document.getElementById('board_overlay').classList.remove('active');
+  display_boards()
+}
+
+async function save_note() {
+  const title   = document.getElementById('title_input').value;
+  const content = document.getElementById('content_input').value;
+
+  console.log(title)
+  console.log(content)
+
+  const response = await create_note(title, content, current_board_id)
+
+// Overlay leeren und löschen
+  document.getElementById('title_input').value   = '';
+  document.getElementById('content_input').value = '';
+  document.getElementById('note_overlay').classList.remove('active');
+  display_boards()
+}
+
+function close_all_popups() {
+  document.getElementById('note_overlay"').classList.remove('active');
+  document.getElementById('board_overlay').classList.remove('active');
+}
+
+// Close on overlay click (outside popup)
+document.getElementById('popups').addEventListener('click', function(e) {
+  if (e.target === this) close_all_popups();
+});

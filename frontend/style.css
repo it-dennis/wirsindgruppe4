@@ -21,8 +21,8 @@ body{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    align-items: flex-start;
-    justify-content: flex-end;
+    align-items: stretch;
+    justify-content: center;
     gap: 10px;
     width: 100%;
 }
@@ -96,4 +96,30 @@ body{
 
 .footerLink:hover{
     color: orange;
+}
+
+
+#board_overlay{
+    display: none;
+}
+
+#board_overlay.active {
+    display: flex;
+}
+
+#note_overlay{
+    display: none;
+}
+
+#note_overlay.active {
+    display: flex;
+}
+
+#boards_container {
+    display: inline;
+}
+
+#boards {
+    display: inline;
+    padding-top: 20px;
 }

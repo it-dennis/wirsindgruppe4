@@ -74,9 +74,16 @@ def list_user_boards(user_id: int, session: Session = Depends(get_session)):
     user = session.get(User, user_id)
     if not user:
         raise HTTPException(status_code=404, detail="User nicht gefunden")
+    # return {
+    #     "eigene": user.owned_boards,
+    #     "geteilte": user.shared_boards
+    # }
+
+    # Sql gibt per default nicht die notes aus, weil das ne Releation ist.
+    # Daher so ein return hier:
     return {
-        "eigene": user.owned_boards,
-        "geteilte": user.shared_boards
+    "eigene": [{"id": board.id, "name": board.name, "owner_id": board.owner_id, "notes": board.notes} for board in user.owned_boards],
+    "geteilte": [{"id": board.id, "name": board.name, "owner_id": board.owner_id, "notes": board.notes} for board in user.shared_boards]
     }
 
 # --- COLLABORATION ---
@@ -90,9 +97,25 @@ def invite_user(board_id: int, user_id: int, session: Session = Depends(get_sess
 # --- NOTIZEN ---
 @app.post("/notes/")
 def create_note(title: str, content: str, board_id: int, session: Session = Depends(get_session)):
+
     note = Note(title=title, content=content, board_id=board_id)
+    
+    print(title)
+    print(content)
+    print(board_id)
+    print(note)
+
+    board = session.get(Board, board_id)
+    if not board:
+        raise HTTPException(status_code=404, detail="Board nicht gefunden")
+    board.notes.append(note)
+
+    print(board.notes)
+
     session.add(note)
     session.commit()
+    session.refresh(note)
+    session.refresh(board)
     return note
 
 
