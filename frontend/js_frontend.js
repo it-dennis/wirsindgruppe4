@@ -44,12 +44,14 @@ async function get_user_boards_notes(user_id) {
 
 // Sign up
 async function register_user(username, password) {
-  const response = await fetch(url + `/users/register?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`, {
+  const response = await fetch(url +
+  `/users/register?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+  {
   method: "POST",
   });
   data = await response.json();
   if (logging) {console.log(data);}
-  return data
+  return { status: response.status, data };
 }
 
 // login
@@ -138,7 +140,6 @@ async function login() {
   const response = await login_user(username, password)
   if (response["login"]) {
     document.getElementById('login_signup_form').style.display = 'none';
-    document.getElementById('boards').style.display = 'block';
     current_user_id = response["id"]
     display_boards()
   } else {
@@ -150,33 +151,29 @@ async function sign_up() {
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
-  console.log(username)
-  console.log(password)
-
    const response = await register_user(username, password)
-   if (response["status"] == "User erstellt") { // Besseren Check bei Gelgenheit
-    document.getElementById('login_signup_form').style.display = 'none';
-    document.getElementById('boards').style.display = 'block';
-    current_user_id = response["id"]
-    display_boards()
+   if (response["status"] == 200) {
+    document.getElementById('login_signup_form').style.display = 'none'; // Sign Up schließen
+    current_user_id = response["data"]["id"] // User ID speichern
+    display_boards() // Boards anzeigen
   } else {
-    // error meldung
+    console.log("Fehler: " + response["status"])
   }
-
 }
 
 async function display_boards() {
+  document.getElementById('boards').style.display = 'flex';
   const board_container = document.getElementById("board_container");
   board_container.innerHTML = "";
 
   // Add Board button
-  const addBoardBtn = document.createElement("button");
-  addBoardBtn.className = "btn_add_board";
-  addBoardBtn.textContent = "+ Add Board";
-  addBoardBtn.addEventListener("click", function () {
+  const board_button = document.createElement("button");
+  board_button.className = "btn_add_board";
+  board_button.textContent = "+ Add Board";
+  board_button.addEventListener("click", function () {
     open_board_popup()
   });
-  board_container.appendChild(addBoardBtn);
+  board_container.appendChild(board_button);
 
   const all_boards = []
 
@@ -219,7 +216,7 @@ async function display_boards() {
     //header.appendChild(edit_user_button);
     board_element.appendChild(header);
 
-    // Element wo Notes reingeladen werden
+    // Element, in welches die Notes reingeladen werden
     const notes_list = document.createElement("div");
     notes_list.className = "notes-list";
 
@@ -234,7 +231,7 @@ async function display_boards() {
         const note = document.createElement("div");
         note.className = "note";
 
-        const note_title = document.createElement("div");
+        const note_title = document.createElement("h3");
         note_title.className = "note_title";
         note_title.textContent = all_boards[i].notes[j].title;
 
