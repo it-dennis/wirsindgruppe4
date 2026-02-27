@@ -40,6 +40,8 @@ Erste Präsentations-Struktur (Felix)
 
 ## Donnerstag 26.02.2026
 
+Von GET auf POST umgestellt im Frontend
+
 Präsentation vorbereiten!  
 
 ## Freitag 27.02.2026

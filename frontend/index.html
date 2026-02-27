@@ -13,29 +13,28 @@
         <div id="login_signup_form">
             <div id="input" class="inline">
                 <input type="text" id="username" placeholder="Username" class="inCol">
-                <input type="text" id="password" placeholder="Password" class="inCol">
+                <input type="password" id="password" placeholder="Password" class="inCol">
             </div>
             <div id="buttons" class="si">
-                <button onclick="login()"class="but">Login</button>
-                <button onclick="sign_up()"class="but">Sign Up</button>
+                <button onclick="login()" class="but">Login</button>
+                <button onclick="sign_up()" class="but">Sign Up</button>
             </div>
         </div>
         <div id="boards" style="display: none;">
-            <div id="board_container" class="inline"></div>
-            <h1>Boards und so</h1>
+            <div id="board_container"></div>
         </div>
     </main>
 
     <div id="popups">
         <div id="board_overlay">
-            <div id="popup">
+            <div class="popup">
                 <h2>New Board</h2>
                 <input  id="name_input"   type="text" placeholder="Title" />
                 <button onclick="save_board()">Save</button>
             </div>
         </div>
         <div id="note_overlay">
-            <div id="popup">
+            <div class="popup">
                 <h2>New Note</h2>
                 <input  id="title_input"   type="text" placeholder="Title" />
                 <textarea id="content_input" placeholder="Content"></textarea>

@@ -5,25 +5,27 @@ url = "http://127.0.0.1:8000"
 print("Starte Frontend Test...\n")
 
 # USER REGISTRIEREN
+response = requests.post(
+    f"{url}/users/register",
+    json={
+        "username": "Testnutzer",
+        "password": "Passwort"
+    }
+)
 
-params = {
-    "username": "Testnutzer",
-    "password": "Passwort"
-}
-
-response = requests.post(f"{url}/users/register", params=params)
 user_data = response.json()
-
-print("User Regestrierung:", user_data)
+print("User Registrierung:", user_data)
 
 user_id = user_data["id"]
 
 
 # LOGIN TEST
-
-login_response = requests.get(
+login_response = requests.post(
     f"{url}/users/login",
-    params={"username": "Testnutzer", "password": "Passwort"}
+    json={
+        "username": "Testnutzer",
+        "password": "Passwort"
+    }
 )
 
 print("Login Antwort:", login_response.json(), "\n")
